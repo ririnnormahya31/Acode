@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selamat Ulang Tahun, Amanda! 🎉</title>
+  <style>
+    :root{
+      --bg:#0f0f1a; --card:#17172a; --text:#f7f7ff; --accent:#ff6ec7; --accent2:#6ef7ff; --glow:0 0 20px rgba(255,110,199,.6);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 20% -10%, #1b1b2e 0%, #0f0f1a 60%),
+                  radial-gradient(1000px 500px at 120% 10%, #1a243a 0%, #0f0f1a 60%),
+                  #0f0f1a;
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    .container{max-width:980px; margin:0 auto; padding:32px 20px 80px; position:relative;}
+    header{display:flex; align-items:center; gap:12px; justify-content:center; margin-top:16px;}
+    .badge{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#141414; font-weight:700; padding:6px 10px; border-radius:999px; box-shadow: var(--glow);}
+    h1{font-size: clamp(32px, 6vw, 64px); text-align:center; margin:10px 0 6px; letter-spacing:.4px;}
+    h1 .spark{filter: drop-shadow(0 0 8px rgba(255,255,255,.6));}
+    .subtitle{opacity:.9; text-align:center; font-size:clamp(14px, 2.6vw, 18px);}.card{
+  margin:28px auto 0; max-width:800px; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.08); border-radius:22px; padding:22px; position:relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
+}
+.wish{font-size:clamp(16px, 2.8vw, 20px); line-height:1.65;}
+.wish b{color:var(--accent2)}
+
+.actions{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:16px}
+button{
+  border:0; border-radius:999px; padding:12px 18px; font-weight:700; cursor:pointer;
+  background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#141414;
+  transition: transform .08s ease, box-shadow .2s ease; box-shadow: var(--glow);
+}
+button.secondary{background:#23233b; color:var(--text); border:1px solid rgba(255,255,255,.1); box-shadow:none}
+button:active{transform: translateY(1px) scale(.99)}
+
+.typewriter{min-height:56px; border-left:3px solid var(--accent2); padding-left:12px; margin:12px 0; white-space:pre-wrap}
+
+/* Floating balloons */
+.balloon{position: fixed; bottom:-120px; width:28px; height:36px; border-radius:50% 50% 45% 55% / 55% 55% 45% 45%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), var(--accent);
+  box-shadow: 0 10px 25px rgba(255,110,199,.35);
+  animation: floatUp linear infinite; z-index:0; opacity:.85}
+.balloon::after{content:""; position:absolute; bottom:-10px; left:50%; width:2px; height:16px; background:rgba(255,255,255,.35)}
+@keyframes floatUp{to{transform: translateY(-120vh) translateX(var(--drift));}}
+
+/* Confetti canvas */
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:5}
+
+/* Gift modal */
+dialog{border:0; border-radius:18px; background: #131326; color:var(--text); padding:0; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.modal-head{padding:16px 18px; background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#141414; font-weight:800}
+.modal-body{padding:20px}
+.modal-body p{margin:0 0 8px}
+.modal-actions{display:flex; justify-content:flex-end; gap:8px; padding:16px}
+
+footer{margin-top:28px; text-align:center; opacity:.7; font-size:12px}
+a.wa{color:var(--accent2); text-decoration:none; border-bottom:1px dashed rgba(110,247,255,.6)}
+
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="container">
+    <header>
+      <span class="badge">🎂 22 Agustus 2025</span>
+    </header>
+    <h1>Selamat Ulang Tahun, <span class="spark">Amanda</span>! 🎉</h1>
+    <p class="subtitle">Semoga hari ini seceria tawa kamu… dan se-ngebut Wi‑Fi tetangga! 😜</p><section class="card">
+  <div class="wish">
+    <p>Hai <b>Amanda</b>, ini hari kamu! Semoga umur nambah, masalah nggak ikut nambah; rezeki lancar, drama cuma <i>trial version</i>; kulit <i>glowing</i>, hati <i>flowing</i>; dan notifikasi dompet lebih rame dari notifikasi mantan. ✨</p>
+    <div id="tw" class="typewriter"></div>
+  </div>
+  <div class="actions">
+    <button id="btnConfetti">Tembak Konfeti 🎊</button>
+    <button id="btnGift" class="secondary">Buka Kado 🎁</button>
+    <button id="btnJoke" class="secondary">Kasih Candaan 🤭</button>
+  </div>
+</section>
+
+<footer>
+  Kirim halaman ini ke Amanda via WhatsApp 👉 
+  <a class="wa" href="https://wa.me/?text=Selamat%20ulang%20tahun%2C%20Amanda!%20Aku%20punya%20kartu%20ultah%20lucu%20buat%20kamu%20%E2%9C%A8%20(klik%20link%20yang%20aku%20kirim%20ini!)" target="_blank" rel="noopener">bagikan sekarang</a>
+</footer>
+
+  </div>  <dialog id="gift">
+    <div class="modal-head">🎁 Kado Virtual untuk Amanda</div>
+    <div class="modal-body">
+      <p>📌 <b>Doa terbaik:</b> langkah makin mantap, mimpi makin dekat, dan pintu kebaikan kebuka lebar.</p>
+      <p>🍰 <b>Voucher kue:</b> Tukarkan pada pengirim halaman ini. Masa berlaku: secepatnya, biar nggak keburu dihabisin. 😆</p>
+      <p>💌 <b>Catatan:</b> Terima kasih sudah jadi teman yang bikin hari-hari lebih ringan. Keep shining! 🌟</p>
+    </div>
+    <div class="modal-actions">
+      <button id="closeGift" class="secondary">Tutup</button>
+      <button id="boomGift">Wiiiii 🎉</button>
+    </div>
+  </dialog>  <script>
+    // --- Simple typewriter ---
+    const lines = [
+      "Selamat ulang tahun! Semoga yang kamu pengenin, datang tanpa drama.",
+      "Semoga setiap langkah kamu ditemenin keberanian, tawa, dan diskon ongkir.",
+      "Kalau capek, ingat: istirahat dulu. Kue menyala untukmu malam ini. ✨"
+    ];
+    const tw = document.getElementById('tw');
+    let li = 0, ci = 0; let typing;
+    function type(){
+      if(li >= lines.length){return}
+      tw.textContent = lines.slice(0,li).join('\n') + (li? '\n':'') + lines[li].slice(0,ci++);
+      typing = requestAnimationFrame(type);
+      if(ci > lines[li].length){li++; ci=0; setTimeout(()=>requestAnimationFrame(type), 500)}
+    }
+    requestAnimationFrame(type);
+
+    // --- Balloons ---
+    function spawnBalloon(){
+      const b = document.createElement('div');
+      b.className = 'balloon';
+      const x = Math.random()*100; // viewport width %
+      b.style.left = x + 'vw';
+      b.style.background = `radial-gradient(circle at 30% 30%, rgba(255,255,255,.7), rgba(255,255,255,0) 40%), hsl(${Math.random()*360}, 90%, 60%)`;
+      b.style.animationDuration = (8 + Math.random()*10) + 's';
+      b.style.setProperty('--drift', (Math.random()*40-20) + 'vw');
+      document.body.appendChild(b);
+      setTimeout(()=> b.remove(), 18000);
+    }
+    setInterval(spawnBalloon, 900);
+    for(let i=0;i<8;i++) setTimeout(spawnBalloon, i*400);
+
+    // --- Confetti ---
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W, H; let confs = [];
+    function resize(){W = canvas.width = innerWidth; H = canvas.height = innerHeight}
+    addEventListener('resize', resize); resize();
+    function burst(n=180){
+      for(let i=0;i<n;i++){
+        confs.push({
+          x: W/2, y: H/3, r: 4+Math.random()*6, a: Math.random()*Math.PI*2,
+          vx:(Math.random()*6-3), vy:(Math.random()*-8-4),
+          g: .18 + Math.random()*.14,
+          c: `hsl(${Math.random()*360}, 90%, 60%)`,
+          spin: Math.random()*0.2+0.02
+        });
+      }
+    }
+    function loop(){
+      ctx.clearRect(0,0,W,H);
+      confs.forEach(p=>{
+        p.vy += p.g; p.x += p.vx; p.y += p.vy; p.a += p.spin;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a);
+        ctx.fillStyle = p.c; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+        ctx.restore();
+      });
+      confs = confs.filter(p=> p.y < H+20);
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    document.getElementById('btnConfetti').addEventListener('click', ()=> burst());
+
+    // --- Gift modal ---
+    const gift = document.getElementById('gift');
+    const closeGift = document.getElementById('closeGift');
+    document.getElementById('btnGift').addEventListener('click', ()=> gift.showModal());
+    closeGift.addEventListener('click', ()=> gift.close());
+    document.getElementById('boomGift').addEventListener('click', ()=> { burst(260); gift.close(); });
+
+    // --- Jokes ---
+    const jokes = [
+      "Semoga umur nambah, tapi pipi tetap minus bengkaknya. 😂",
+      "Wish: semoga saldo dan libur panjang datang bersamaan. 🤝",
+      "Kalau bahagia itu orderan, semoga kamu lagi COD tiap hari. 🛵",
+      "Semoga masalahmu cuma: kue rasa apa dulu ya? 🎂",
+      "Doa terbaik: skincare cocok, tiket murah, dan chat dibales cepet. 💌"
+    ];
+    document.getElementById('btnJoke').addEventListener('click', ()=>{
+      const j = jokes[Math.floor(Math.random()*jokes.length)];
+      const p = document.createElement('p');
+      p.textContent = '• ' + j; p.style.opacity = .95;
+      document.querySelector('.wish').appendChild(p);
+      burst(80);
+    });
+
+    // Accessibility: space = confetti
+    addEventListener('keydown', e=>{ if(e.code==='Space'){ e.preventDefault(); burst(); } });
+  </script></body>
+</html>
